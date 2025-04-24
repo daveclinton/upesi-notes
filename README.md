@@ -1,6 +1,6 @@
 # UpesiNotes Frontend
 
-UpesiNotes is a fast, clean platform built for professional technical writers and documentation teams. This repository contains the frontend for the UpesiNotes MVP, combining a markdown-first editor with Git-inspired version control and streamlined review workflows. It solves the pain points of slow, cluttered tools like Notion or Google Docs, delivering a focused, iterative writing experience for technical content creators.
+UpesiNotes is a fast, clean platform built for professional documentation teams. This repository contains the frontend for the UpesiNotes MVP, combining a markdown-first editor with Git-inspired version control and streamlined review workflows. It solves the pain points of slow, cluttered tools like Notion or Google Docs, delivering a focused, iterative writing experience for technical content creators.
 
 ## Features
 
