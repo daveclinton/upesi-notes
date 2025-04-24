@@ -112,10 +112,10 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 For questions or feedback, reach out via:
 
-- Email: your.email@example.com
-- X: @yourXhandle
-- GitHub: yourusername
+- Email: clintondavid46@gmail.com
+- X: @daveclintonn
+- GitHub: daveclinton
 
 ---
 
-Built with 💻 by \[Your Name\] for technical writers everywhere.
+Built with 💻 by \[David Clinton\] for documentation teams everywhere.
