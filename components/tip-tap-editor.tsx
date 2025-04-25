@@ -1,7 +1,12 @@
 "use client";
 
-import React, { useState, useRef, useEffect, useCallback } from "react";
+import type React from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import dynamic from "next/dynamic";
+import FeatureImageUploader from "./feature-image-uploader";
+import { Button } from "@/components/ui/button";
+import { ImageIcon, PlusCircleIcon, MinusCircleIcon } from "lucide-react";
+import Image from "next/image";
 
 const TipTapEditor = dynamic(
   () => import("./tip-client-edtor").then((mod) => mod.default),
@@ -11,13 +16,20 @@ const TipTapEditor = dynamic(
 interface Content {
   title: string;
   subTitle: string;
+  featureImage: string | null;
 }
 
 const MainEditor: React.FC = () => {
-  const [content, setContent] = useState<Content>({ title: "", subTitle: "" });
+  const [content, setContent] = useState<Content>({
+    title: "",
+    subTitle: "",
+    featureImage: null,
+  });
   const [isEditable] = useState<boolean>(true);
   const titleRef = useRef<HTMLTextAreaElement>(null);
   const subtitleRef = useRef<HTMLTextAreaElement>(null);
+  const [isFeatureImageExpanded, setIsFeatureImageExpanded] =
+    useState<boolean>(false);
 
   // Memoized textarea height adjustment
   const adjustHeight = useCallback((textarea: HTMLTextAreaElement | null) => {
@@ -41,6 +53,11 @@ const MainEditor: React.FC = () => {
     },
     [adjustHeight]
   );
+
+  // Handle feature image change
+  const handleFeatureImageChange = useCallback((imageUrl: string | null) => {
+    setContent((prev) => ({ ...prev, featureImage: imageUrl }));
+  }, []);
 
   // Common textarea props
   const textareaProps = {
@@ -81,6 +98,48 @@ const MainEditor: React.FC = () => {
           !isEditable ? "opacity-70" : ""
         }`}
       />
+
+      <div className="mb-6 pb-2">
+        <Button
+          variant="ghost"
+          size="sm"
+          className="flex items-center justify-between w-full p-0 h-auto"
+          onClick={() => setIsFeatureImageExpanded(!isFeatureImageExpanded)}
+        >
+          <div className="flex items-center gap-2 text-muted-foreground">
+            <ImageIcon className="h-4 w-4" />
+            <span className="text-sm font-medium">
+              {content.featureImage
+                ? "Feature image added"
+                : "Add feature image (optional)"}
+            </span>
+          </div>
+          {isFeatureImageExpanded ? (
+            <MinusCircleIcon className="h-4 w-4 text-muted-foreground" />
+          ) : (
+            <PlusCircleIcon className="h-4 w-4 text-muted-foreground" />
+          )}
+        </Button>
+
+        {content.featureImage && !isFeatureImageExpanded && (
+          <div className="mt-2 relative h-16 w-full overflow-hidden rounded-md border border-border">
+            <Image
+              src={content.featureImage || "/placeholder.svg"}
+              alt="Feature"
+              className="h-full w-full object-cover"
+            />
+          </div>
+        )}
+
+        {isFeatureImageExpanded && (
+          <div className="mt-2">
+            <FeatureImageUploader
+              onImageChange={handleFeatureImageChange}
+              initialImage={content.featureImage}
+            />
+          </div>
+        )}
+      </div>
 
       <TipTapEditor isEditable={isEditable} />
     </main>
