@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -141,4 +142,13 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.ProseMirror-inner-resizer {
+  width: 100% !important;
+  align-self: flex-start !important;
+}
+
+.tippy-box[data-theme="ProseMirror"] {
+  background-color: var(--background) !important;
 }

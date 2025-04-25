@@ -3,19 +3,27 @@
 import React, { useEffect } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { StarterKit } from "@syfxlin/tiptap-starter-kit";
-import { editorContent } from "@/lib/content";
 
 interface TipTapEditorProps {
   isEditable: boolean;
 }
 
 const TipTapEditorClient: React.FC<TipTapEditorProps> = ({ isEditable }) => {
-  // Initialize editor with proper configuration
   const editor = useEditor({
     extensions: [StarterKit],
     content: {
       type: "doc",
-      content: editorContent,
+      content: [
+        {
+          type: "paragraph",
+          content: [
+            {
+              type: "text",
+              text: "Start Writing...",
+            },
+          ],
+        },
+      ],
     },
     editorProps: {
       attributes: {
@@ -44,9 +52,9 @@ const TipTapEditorClient: React.FC<TipTapEditorProps> = ({ isEditable }) => {
   if (!editor) return null;
 
   return (
-    <div className={`editor-container ${!isEditable ? "opacity-70" : ""}`}>
+    <article className={`editor-container prose dark:prose-invert`}>
       <EditorContent editor={editor} />
-    </div>
+    </article>
   );
 };
 
