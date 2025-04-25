@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import { StarterKit } from "@tiptap/starter-kit";
 
@@ -31,11 +31,6 @@ const MainEditor = () => {
       textarea.style.height = `${textarea.scrollHeight}px`;
     }
   };
-
-  useEffect(() => {
-    adjustHeight(titleRef.current);
-    adjustHeight(subtitleRef.current);
-  }, [content]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLTextAreaElement>,
