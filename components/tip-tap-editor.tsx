@@ -16,7 +16,7 @@ const MainEditor = () => {
 
   const editor = useEditor({
     extensions: [StarterKit],
-    content: "<h1>Hello World</h1><p>This is a simple Tiptap editor.</p>",
+    content: "<h1>Start writing...</h1>",
     immediatelyRender: false,
     editorProps: {
       attributes: {
