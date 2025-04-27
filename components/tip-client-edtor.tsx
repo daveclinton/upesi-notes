@@ -31,16 +31,15 @@ const TipTapEditorClient: React.FC<TipTapEditorProps> = ({ isEditable }) => {
       },
     },
     editable: isEditable,
+    immediatelyRender: true,
   });
 
-  // Update editor editable state when isEditable changes
   useEffect(() => {
     if (editor) {
       editor.setEditable(isEditable);
     }
   }, [isEditable, editor]);
 
-  // Cleanup editor on unmount
   useEffect(() => {
     return () => {
       if (editor) {

@@ -5,8 +5,15 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import dynamic from "next/dynamic";
 import FeatureImageUploader from "./feature-image-uploader";
 import { Button } from "@/components/ui/button";
-import { ImageIcon, PlusCircleIcon, MinusCircleIcon } from "lucide-react";
+import {
+  ImageIcon,
+  PlusCircleIcon,
+  MinusCircleIcon,
+  BoldIcon,
+  ItalicIcon,
+} from "lucide-react";
 import Image from "next/image";
+import { Toolbar, ToolbarGroup } from "./tiptap-ui-primitive/toolbar";
 
 const TipTapEditor = dynamic(
   () => import("./tip-client-edtor").then((mod) => mod.default),
@@ -31,7 +38,6 @@ const MainEditor: React.FC = () => {
   const [isFeatureImageExpanded, setIsFeatureImageExpanded] =
     useState<boolean>(false);
 
-  // Memoized textarea height adjustment
   const adjustHeight = useCallback((textarea: HTMLTextAreaElement | null) => {
     if (textarea) {
       textarea.style.height = "auto";
@@ -39,13 +45,11 @@ const MainEditor: React.FC = () => {
     }
   }, []);
 
-  // Effect to adjust heights of textareas when content changes
   useEffect(() => {
     adjustHeight(titleRef.current);
     adjustHeight(subtitleRef.current);
   }, [content.title, content.subTitle, adjustHeight]);
 
-  // Handle changes to title or subtitle
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLTextAreaElement>, field: keyof Content) => {
       setContent((prev) => ({ ...prev, [field]: e.target.value }));
@@ -54,12 +58,10 @@ const MainEditor: React.FC = () => {
     [adjustHeight]
   );
 
-  // Handle feature image change
   const handleFeatureImageChange = useCallback((imageUrl: string | null) => {
     setContent((prev) => ({ ...prev, featureImage: imageUrl }));
   }, []);
 
-  // Common textarea props
   const textareaProps = {
     className:
       "mousetrap text-muted-foreground mb-2 outline-none w-full resize-none",
@@ -71,6 +73,16 @@ const MainEditor: React.FC = () => {
 
   return (
     <main className="mx-auto max-w-5xl px-4 py-6">
+      <Toolbar>
+        <ToolbarGroup>
+          <Button variant="ghost">
+            <BoldIcon className="tiptap-button-icon" />
+          </Button>
+          <Button variant="ghost">
+            <ItalicIcon className="tiptap-button-icon" />
+          </Button>
+        </ToolbarGroup>
+      </Toolbar>
       <textarea
         ref={titleRef}
         id="post-title"
